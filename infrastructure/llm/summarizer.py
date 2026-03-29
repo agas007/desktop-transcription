@@ -38,7 +38,7 @@ Here is the transcript:
 """
         response = self.client.chat.completions.create(
             # Can change to another openrouter model if preferred (e.g. meta-llama/llama-3-8b-instruct)
-            model="openai/gpt-3.5-turbo", 
+            model=Config.OPENROUTER_MODEL, 
             messages=[
                 {"role": "system", "content": "You are a helpful assistant that summarizes meeting transcripts."},
                 {"role": "user", "content": prompt}
