@@ -14,26 +14,30 @@ class OpenRouterSummarizer(SummarizationService):
         self.client = openai.OpenAI(
             base_url="https://openrouter.ai/api/v1",
             api_key=api_key,
+            default_headers={
+                "HTTP-Referer": "https://github.com/agas/desktop-transcription",
+                "X-Title": "Desktop Transcription MVP",
+            }
         )
 
     def summarize(self, transcript: Transcript) -> str:
         prompt = f"""
-Please generate Meeting Minutes from the following transcript.
-Follow this format strictly:
+Tolong buatkan Notulensi Rapat (Meeting Minutes) dalam Bahasa Indonesia dari transkrip berikut ini.
+Gunakan format yang terstruktur dengan ketat seperti di bawah ini:
 
-[SUMMARY]
+[RINGKASAN]
 ...
 
-[KEY POINTS]
+[POIN PENTING]
 ...
 
-[ACTION ITEMS]
-* [Owner] Task
+[TINDAKAN / ACTION ITEMS]
+* [Pihak Terkait] Tugas / Action Item
 
-[DECISIONS]
+[KEPUTUSAN]
 ...
 
-Here is the transcript:
+Berikut adalah transkripnya:
 {transcript.text}
 """
         response = self.client.chat.completions.create(

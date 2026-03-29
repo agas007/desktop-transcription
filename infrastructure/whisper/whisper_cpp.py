@@ -14,7 +14,7 @@ class WhisperCppService(TranscriptionService):
     def transcribe(self, audio_path: str) -> Transcript:
         # whisper-cpp-python process requires the file or numpy array
         # Assuming we just pass the wrapper
-        result = self.whisper.transcribe(audio_path)
+        result = self.whisper.transcribe(audio_path, response_format="verbose_json", language="id")
         
         segments = []
         full_text = []
