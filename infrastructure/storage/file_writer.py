@@ -48,7 +48,7 @@ class FileWriter:
     def _write_json(self, path: str, meeting: MeetingData):
         data = {
             "transcript_text": meeting.transcript.text,
-            "segments": [{"start": s.start, "end": s.end, "text": s.text} for s in meeting.transcript.segments],
+            "segments": [{"start": s.start, "end": s.end, "text": s.text, "speaker": s.speaker} for s in meeting.transcript.segments],
             "summary_text": meeting.summary_text
         }
         with open(path, "w", encoding="utf-8") as f:
