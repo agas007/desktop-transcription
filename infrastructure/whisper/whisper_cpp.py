@@ -9,7 +9,7 @@ class WhisperCppService(TranscriptionService):
         self.model_path = Config.WHISPER_MODEL_PATH
         if not os.path.exists(self.model_path):
             raise FileNotFoundError(f"Whisper model not found at {self.model_path}. Please download it.")
-        self.whisper = Whisper(model_path=self.model_path, verbose=False)
+        self.whisper = Whisper(model_path=self.model_path)
 
     def transcribe(self, audio_path: str) -> Transcript:
         # whisper-cpp-python process requires the file or numpy array
