@@ -1,0 +1,25 @@
+# Environments
+.env
+venv/
+env/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# IDEs
+.vscode/
+.idea/
+.DS_Store
+
+# Output
+output/meetings/
+models/whisper/
+input/recordings/
+temp_*.wav
+
+# Specific files
+raw.json
+transcript.txt
+summary.txt
+transcript.docx
+summary.docx

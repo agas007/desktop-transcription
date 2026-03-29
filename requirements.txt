@@ -1,0 +1,9 @@
+sounddevice==0.4.6
+numpy==1.26.4
+ffmpeg-python==0.2.0
+torch==2.2.1
+python-dotenv==1.0.1
+whisper-cpp-python==0.2.1
+openai==1.14.3
+python-docx==1.1.0
+pyannote.audio==3.1.1
