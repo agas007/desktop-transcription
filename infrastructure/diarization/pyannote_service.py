@@ -35,8 +35,24 @@ class PyannoteService:
         print("Detecting speakers using Pyannote...")
         diarization = self.pipeline(audio_path)
         
+        # In Pyannote 4.x+, the output is a DiarizeOutput object
+        # We need to access the 'speaker_diarization' or similar attribute which is an Annotation
+        annotation = diarization
+        if hasattr(diarization, "speaker_diarization"):
+            annotation = diarization.speaker_diarization
+        elif hasattr(diarization, "diarization"):
+            annotation = diarization.diarization
+        elif isinstance(diarization, dict) and "speaker_diarization" in diarization:
+            annotation = diarization["speaker_diarization"]
+            
+        if not hasattr(annotation, "itertracks"):
+            print(f"DEBUG: Diarization output type: {type(diarization)}")
+            print(f"DEBUG: Available attributes: {dir(diarization)}")
+            # Fallback for unexpected formats
+            return []
+            
         intervals = []
-        for turn, _, speaker in diarization.itertracks(yield_label=True):
+        for turn, _, speaker in annotation.itertracks(yield_label=True):
             intervals.append({
                 "start": turn.start,
                 "end": turn.end,
